@@ -5,18 +5,14 @@
   <title>OAuth Redirect</title>
   <script>
     window.onload = function () {
-      // Get URL params
       const params = new URLSearchParams(window.location.search);
 
-      // Example: Google will return ?code=XYZ (auth code) or your backend might append ?token=XYZ
       const code = params.get("code");
       const token = params.get("token");
 
-      // Prefer token (if backend appends it), else fallback to code
       const value = token || code;
 
       if (value) {
-        // Redirect back into the mobile app via deep link
         window.location.href = "myapp://youtube-callback?value=" + encodeURIComponent(value);
       } else {
         document.body.innerHTML = "<h3>No token or code found in redirect.</h3>";

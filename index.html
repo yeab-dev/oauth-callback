@@ -9,11 +9,17 @@
 
       const code = params.get("code");
       const token = params.get("token");
+      const error = params.get("error");
+      const platform = params.get("platform") || "generic";
+
+      if (error) {
+        window.location.href = `myapp://${platform}-callback?error=${encodeURIComponent(error)}`;
+        return;
+      }
 
       const value = token || code;
-
       if (value) {
-        window.location.href = "myapp://youtube-callback?value=" + encodeURIComponent(value);
+        window.location.href = `myapp://${platform}-callback?value=${encodeURIComponent(value)}`;
       } else {
         document.body.innerHTML = "<h3>No token or code found in redirect.</h3>";
       }
